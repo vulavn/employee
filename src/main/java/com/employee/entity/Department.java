@@ -1,30 +1,63 @@
 package com.employee.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "department")
 public class Department {
 
-    private int id;
-    private String name;
+    private int deptId;
 
-    public Department(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private String deptName;
+    private String location;
+    private Set<Employee> employees = new HashSet<Employee>(0);
 
     public Department() {}
 
-    public int getId() {
-        return id;
+    public Department(int deptId, String deptName, String location) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+        this.location = location;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Id
+    @GeneratedValue
+    @Column(name = "DEPT_ID")
+    public Integer getDeptId() {
+        return deptId;
     }
 
-    public String getName() {
-        return name;
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Column(name = "DEPT_NAME", nullable = false)
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    @Column(name = "LOCATION")
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

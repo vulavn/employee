@@ -1,50 +1,87 @@
 package com.employee.entity;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "employee")
 public class Employee {
+    private long empId;
 
-    private int id;
-    private String name;
-    private boolean gender; // true - male
-    private String skill;
+    private String empName;
+    private String job;
+    private Float salary;
 
-    public Employee(int id, String name, boolean gender, String skill) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.skill = skill;
+    private Department department;
+    private Set<Employee> employees = new HashSet<Employee>(0);
+
+    public Employee() {
     }
 
-    public Employee(){}
-
-    public int getId() {
-        return id;
+    public Employee(Long empId, String empName, String job, float salary, Department department) {
+        this.empId = empId;
+        this.empName = empName;
+        this.job = job;
+        this.salary = salary;
+        this.department = department;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Id
+    @GeneratedValue
+    @Column(name = "EMP_ID")
+    public Long getEmpId() {
+        return empId;
     }
 
-    public String getName() {
-        return name;
+    public void setEmpId(Long empId) {
+        this.empId = empId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Column(name = "EMP_NAME", length = 50, nullable = false)
+    public String getEmpName() {
+        return empName;
     }
 
-    public boolean isGender() {
-        return gender;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    @Column(name = "JOB", length = 30, nullable = false)
+    public String getJob() {
+        return job;
     }
 
-    public String getSkill() {
-        return skill;
+    public void setJob(String job) {
+        this.job = job;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    @Column(name = "SALARY", nullable = false)
+    public Float getSalary() {
+        return salary;
     }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEPT_ID", nullable = false)
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empId")
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
 }

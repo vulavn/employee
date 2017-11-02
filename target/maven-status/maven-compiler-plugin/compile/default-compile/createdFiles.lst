@@ -1,4 +1,8 @@
 com\employee\config\AppConfiguration.class
 com\employee\config\AppInitializer.class
-com\employee\controller\EmployeeController.class
+com\employee\dao\HibernateUtils.class
+com\employee\dao\EmployeeDao.class
 com\employee\entity\Department.class
+com\employee\controller\EmployeeController.class
+com\employee\dao\DepartmentDao.class
+com\employee\entity\Employee.class

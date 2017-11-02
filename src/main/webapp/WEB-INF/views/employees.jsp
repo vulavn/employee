@@ -5,10 +5,15 @@
     <title>Employee</title>
 </head>
 <body>
-    <c:forEach items="${lstName}" var="item">
+    <h3>List Department</h3>
+    <c:forEach items="${lstDepartment}" var="item">
+        <h4>${item.deptName} : ${item.location}</h4>
+    </c:forEach>
 
-        <h4>${item.name}</h4>
+    <br/>
 
+    <c:forEach items="${lstEmployee}" var="item">
+        <h4>${item.empName}</h4>
     </c:forEach>
 </body>
 </html>
